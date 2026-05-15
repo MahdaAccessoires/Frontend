@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-cream text-charcoal font-sans;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif;
+  }
+}
+
+@layer utilities {
+  .text-gold-gradient {
+    background: linear-gradient(135deg, #9A7B3B, #C5A258, #D4B96A);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .bg-gold-gradient {
+    background: linear-gradient(135deg, #9A7B3B, #C5A258, #D4B96A);
+  }
+  .sparkle-hover {
+    position: relative;
+    overflow: hidden;
+  }
+  .sparkle-hover::after {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: linear-gradient(45deg, transparent 40%, rgba(212,185,106,0.3) 45%, rgba(212,185,106,0.5) 50%, rgba(212,185,106,0.3) 55%, transparent 60%);
+    transform: translateX(-100%);
+    pointer-events: none;
+  }
+  .sparkle-hover:hover::after {
+    animation: sparkle-sweep 0.8s ease-in-out;
+  }
+}
+@keyframes sparkle-sweep {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
