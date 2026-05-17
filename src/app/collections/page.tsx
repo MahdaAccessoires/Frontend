@@ -2,27 +2,118 @@ import Link from "next/link";
 
 export default function CollectionsPage() {
   const collections = [
-    { title: "Rings", desc: "From engagement solitaires to statement cocktail rings." },
-    { title: "Necklaces", desc: "Delicate pendants and bold statement pieces." },
-    { title: "Bracelets", desc: "Tennis bracelets, bangles, and charm bracelets." },
+    {
+      title: "Rings",
+      desc: "From engagement solitaires to statement cocktail rings. Discover our exquisite collection of rings crafted with precision and passion.",
+      image: "/images/collection-rings.jpg",
+      gradient: "from-pink-600/30 to-pink-800/40"
+    },
+    {
+      title: "Necklaces",
+      desc: "Delicate pendants and bold statement pieces. Each necklace tells a story of elegance and sophistication.",
+      image: "/images/collection-necklaces.jpg",
+      gradient: "from-rose-600/30 to-rose-800/40"
+    },
+    {
+      title: "Bracelets",
+      desc: "Tennis bracelets, bangles, and charm bracelets. Adorn your wrist with our stunning bracelet collection.",
+      image: "/images/collection-bracelets.jpg",
+      gradient: "from-fuchsia-600/30 to-fuchsia-800/40"
+    },
   ];
+
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20">
-      <div className="text-center mb-16">
-        <p className="text-gold text-xs tracking-[0.3em] uppercase mb-3">Curated with Love</p>
-        <h1 className="font-serif text-4xl sm:text-5xl">Our Collections</h1>
+    <div className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 min-h-screen">
+      {/* Background Pattern */}
+      <div className="fixed inset-0 opacity-5 pointer-events-none">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `radial-gradient(circle at 25% 25%, #FF69B4 2px, transparent 2px),
+                           radial-gradient(circle at 75% 75%, #C5A258 1px, transparent 1px)`,
+          backgroundSize: '60px 60px'
+        }} />
       </div>
-      <div className="space-y-20">
-        {collections.map((col, i) => (
-          <div key={col.title} className={`grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center`}>
-            <div className={i % 2 === 1 ? "lg:order-2" : ""}><div className="aspect-[4/3] bg-gray-200 rounded-lg" /></div>
-            <div className={i % 2 === 1 ? "lg:order-1" : ""}>
-              <h2 className="font-serif text-3xl sm:text-4xl mb-4">{col.title}</h2>
-              <p className="text-gray-500 text-sm leading-relaxed mb-6">{col.desc}</p>
-              <Link href="/shop" className="inline-block border border-charcoal/20 px-6 py-2.5 text-sm tracking-wider uppercase rounded hover:bg-charcoal hover:text-white transition-colors">View Collection</Link>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20 relative">
+        {/* Header */}
+        <div className="text-center mb-20 animate-elegant-fade">
+          <p className="text-pink-400 text-xs tracking-[0.3em] uppercase mb-4 font-medium">Curated with Love</p>
+          <h1 className="font-serif text-4xl sm:text-6xl text-white mb-6 text-shadow-elegant">Our Collections</h1>
+          <p className="text-neutral-300 text-lg max-w-2xl mx-auto">Explore our carefully curated collections, each piece designed to complement your unique style</p>
+        </div>
+
+        {/* Collections Grid */}
+        <div className="space-y-32">
+          {collections.map((col, i) => (
+            <div key={col.title} className={`grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center animate-elegant-fade`} style={{ animationDelay: `${i * 300}ms` }}>
+              {/* Image Section */}
+              <div className={`${i % 2 === 1 ? "lg:order-2" : ""}`}>
+                <div className="relative group">
+                  <div className="aspect-[4/3] rounded-2xl overflow-hidden feminine-border shadow-pink group-hover:shadow-pink-hover transition-all duration-500">
+                    {/* Collection Image */}
+                    <div
+                      className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+                      style={{
+                        backgroundImage: `url("${col.image}")`
+                      }}
+                    />
+
+                    {/* Gradient Overlay */}
+                    <div className={`absolute inset-0 bg-gradient-to-br ${col.gradient}`} />
+
+                    {/* Dark Overlay for depth */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+
+                    {/* Sparkle Effects */}
+                    <div className="absolute top-4 right-4 w-3 h-3 bg-pink-400 rounded-full opacity-0 group-hover:opacity-60 animate-pulse" />
+                    <div className="absolute bottom-4 left-4 w-2 h-2 bg-gold-400 rounded-full opacity-0 group-hover:opacity-60 animate-pulse" style={{ animationDelay: "0.5s" }} />
+                  </div>
+                </div>
+              </div>
+
+              {/* Content Section */}
+              <div className={`${i % 2 === 1 ? "lg:order-1" : ""}`}>
+                <div className="space-y-6">
+                  <div>
+                    <h2 className="font-serif text-3xl sm:text-5xl text-white mb-4 text-shadow-elegant">{col.title}</h2>
+                    <div className="w-20 h-1 bg-pink-gradient rounded-full mb-6" />
+                  </div>
+
+                  <p className="text-neutral-300 text-lg leading-relaxed mb-8">
+                    {col.desc}
+                  </p>
+
+                  <div className="space-y-4">
+                    <Link
+                      href="/shop"
+                      className="inline-flex items-center gap-3 bg-pink-gradient text-white px-8 py-3 text-sm font-medium tracking-widest uppercase rounded-full shadow-pink hover:shadow-pink-hover transition-all duration-300 transform hover:scale-105"
+                    >
+                      View Collection
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                      </svg>
+                    </Link>
+                  </div>
+
+                  {/* Features */}
+                  <div className="pt-6 space-y-3">
+                    <div className="flex items-center gap-3">
+                      <div className="w-2 h-2 bg-pink-400 rounded-full" />
+                      <span className="text-neutral-400 text-sm">Handcrafted with precision</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="w-2 h-2 bg-pink-400 rounded-full" />
+                      <span className="text-neutral-400 text-sm">Premium quality materials</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="w-2 h-2 bg-pink-400 rounded-full" />
+                      <span className="text-neutral-400 text-sm">Timeless elegant designs</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );
