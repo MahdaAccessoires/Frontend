@@ -3,8 +3,11 @@
 import Link from "next/link";
 import { FaInstagram, FaFacebook, FaTiktok, FaWhatsapp, FaTelegram } from "react-icons/fa";
 import { Mail, Phone, MapPin } from "lucide-react";
+import { useTranslation } from "@/components/TranslationProvider";
 
 export default function Footer() {
+  const { t, locale } = useTranslation();
+
   return (
     <footer className="bg-gradient-to-br from-neutral-900 to-neutral-800 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -17,27 +20,27 @@ export default function Footer() {
               Mahda Accessoires
             </h2>
             <p className="text-sm text-neutral-400 leading-relaxed">
-              Jewelry that reflects your unique beauty and style.
+              {locale === 'ar' ? 'مجوهرات تعكس جمالك وأناقتك الفريدة' : locale === 'fr' ? 'Bijoux qui reflètent votre beauté et votre style unique' : 'Jewelry that reflects your unique beauty and style.'}
             </p>
           </div>
 
           {/* Shop */}
           <div>
             <h3 className="font-serif text-sm tracking-widest uppercase mb-4 text-pink-300">
-              Shop
+              {t('shop')}
             </h3>
             <ul className="space-y-2 text-sm text-neutral-400">
-              <li><Link href="/shop" className="hover:text-pink-400 transition">All Jewelry</Link></li>
-              <li><Link href="/shop" className="hover:text-pink-400 transition">Rings</Link></li>
-              <li><Link href="/shop" className="hover:text-pink-400 transition">Necklaces</Link></li>
-              <li><Link href="/shop" className="hover:text-pink-400 transition">Bracelets</Link></li>
+              <li><Link href={`/${locale}/shop`} className="hover:text-pink-400 transition">{locale === 'ar' ? 'كل المجوهرات' : locale === 'fr' ? 'Tous les bijoux' : 'All Jewelry'}</Link></li>
+              <li><Link href={`/${locale}/shop`} className="hover:text-pink-400 transition">{locale === 'ar' ? 'خواتم' : locale === 'fr' ? 'Bagues' : 'Rings'}</Link></li>
+              <li><Link href={`/${locale}/shop`} className="hover:text-pink-400 transition">{locale === 'ar' ? 'قلادات' : locale === 'fr' ? 'Colliers' : 'Necklaces'}</Link></li>
+              <li><Link href={`/${locale}/shop`} className="hover:text-pink-400 transition">{locale === 'ar' ? 'أساور' : locale === 'fr' ? 'Bracelets' : 'Bracelets'}</Link></li>
             </ul>
           </div>
 
           {/* Contact */}
           <div>
             <h3 className="font-serif text-sm tracking-widest uppercase mb-4 text-pink-300">
-              Contact
+              {t('contact')}
             </h3>
             <ul className="space-y-3 text-sm text-neutral-400">
 
@@ -81,7 +84,7 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className="mt-12 pt-8 border-t border-neutral-700/50 text-center text-xs text-neutral-400">
-          2026 Mahda Accessoires. All rights reserved.
+          2026 Mahda Accessoires. {t('allRightsReserved')}
         </div>
 
       </div>

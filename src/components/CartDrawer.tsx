@@ -1,9 +1,11 @@
 "use client";
 import Link from "next/link";
 import { useCartStore } from "@/lib/cart-store";
+import { useTranslation } from "@/components/TranslationProvider";
 
 export default function CartDrawer() {
   const { items, isOpen, setOpen, removeItem, updateQuantity, total } = useCartStore();
+  const { t } = useTranslation();
   if (!isOpen) return null;
 
   return (
@@ -20,12 +22,12 @@ export default function CartDrawer() {
           />
         </div>
         <div className="flex items-center justify-between p-6 border-b border-neutral-600">
-          <h2 className="font-serif text-xl text-white">Your Cart</h2>
+          <h2 className="font-serif text-xl text-white">{t('shoppingCart')}</h2>
           <button onClick={() => setOpen(false)} className="p-2 text-neutral-400 hover:text-pink-400 transition-colors">✕</button>
         </div>
         <div className="flex-1 overflow-y-auto p-6">
           {items.length === 0 ? (
-            <p className="text-neutral-400 text-center mt-12">Your cart is empty</p>
+            <p className="text-neutral-400 text-center mt-12">{t('yourCartIsEmpty')}</p>
           ) : (
             <div className="space-y-6">
               {items.map((item) => (

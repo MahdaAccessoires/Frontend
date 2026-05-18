@@ -2,6 +2,7 @@
 import { useState, useEffect, useMemo } from "react";
 import ProductCard from "@/components/ProductCard";
 import { api } from "@/lib/api";
+import { useTranslation } from "@/hooks/useTranslationSimple";
 
 const categories = ["all", "rings", "necklaces", "bracelets", "earrings"];
 const materials = ["all", "gold", "rose-gold", "platinum", "silver"];
@@ -11,6 +12,7 @@ export default function ShopPage() {
   const [category, setCategory] = useState("all");
   const [material, setMaterial] = useState("all");
   const [sort, setSort] = useState("featured");
+  const { t, locale } = useTranslation();
 
   useEffect(() => {
     api.products.list().then(setProducts).catch(() => { });
@@ -29,9 +31,9 @@ export default function ShopPage() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
       {/* Header Section */}
       <div className="text-center mb-16 animate-elegant-fade">
-        <p className="text-pink-400 text-xs tracking-[0.3em] uppercase mb-4 font-medium">Discover Our</p>
-        <h1 className="font-serif text-4xl sm:text-5xl text-white mb-4 text-shadow-elegant">Shop</h1>
-        <p className="text-neutral-300 text-lg max-w-2xl mx-auto">Find your perfect piece from our curated selection of luxury accessories</p>
+        <p className="text-pink-400 text-xs tracking-[0.3em] uppercase mb-4 font-medium">{t('discoverOur')}</p>
+        <h1 className="font-serif text-4xl sm:text-5xl text-white mb-4 text-shadow-elegant">{t('shop')}</h1>
+        <p className="text-neutral-300 text-lg max-w-2xl mx-auto">{t('discoverTrendy')}</p>
       </div>
 
       {/* Background Pattern */}
@@ -48,7 +50,7 @@ export default function ShopPage() {
         <div className="flex flex-wrap items-center justify-between gap-6">
           {/* Category Filter */}
           <div className="flex flex-wrap gap-2">
-            <p className="text-pink-400 text-xs tracking-wider uppercase self-center mr-2">Categories:</p>
+            <p className="text-pink-400 text-xs tracking-wider uppercase self-center mr-2">{t('categories')}:</p>
             {categories.map((c) => (
               <button
                 key={c}
@@ -58,7 +60,7 @@ export default function ShopPage() {
                   : "border-gray-600 text-gray-400 hover:border-pink-500 hover:text-pink-400 hover:bg-pink-500/10"
                   }`}
               >
-                {c === "all" ? "All" : c}
+                {c === "all" ? t('all') : c}
               </button>
             ))}
           </div>
@@ -70,16 +72,16 @@ export default function ShopPage() {
               onChange={(e) => setMaterial(e.target.value)}
               className="text-xs tracking-wider uppercase bg-gray-800 border border-gray-600 text-gray-300 rounded-full px-4 py-2 focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 transition-all duration-300"
             >
-              {materials.map((m) => <option key={m} value={m}>{m === "all" ? "All Materials" : m}</option>)}
+              {materials.map((m) => <option key={m} value={m}>{m === "all" ? t('allMaterials') : m}</option>)}
             </select>
             <select
               value={sort}
               onChange={(e) => setSort(e.target.value)}
               className="text-xs tracking-wider uppercase bg-gray-800 border border-gray-600 text-gray-300 rounded-full px-4 py-2 focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 transition-all duration-300"
             >
-              <option value="featured">Featured</option>
-              <option value="price-asc">Price: Low to High</option>
-              <option value="price-desc">Price: High to Low</option>
+              <option value="featured">{t('featured')}</option>
+              <option value="price-asc">{t('priceLowToHigh')}</option>
+              <option value="price-desc">{t('priceHighToLow')}</option>
             </select>
           </div>
         </div>

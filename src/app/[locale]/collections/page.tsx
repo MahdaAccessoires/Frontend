@@ -1,22 +1,25 @@
 import Link from "next/link";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export default function CollectionsPage() {
+  const { t, locale } = useTranslation();
+
   const collections = [
     {
-      title: "Rings",
-      desc: "From engagement solitaires to statement cocktail rings. Discover our exquisite collection of rings crafted with precision and passion.",
+      title: t('rings'),
+      desc: t('ringsDesc'),
       image: "/images/collection-rings.jpg",
       gradient: "from-pink-600/30 to-pink-800/40"
     },
     {
-      title: "Necklaces",
-      desc: "Delicate pendants and bold statement pieces. Each necklace tells a story of elegance and sophistication.",
+      title: t('necklaces'),
+      desc: t('necklacesDesc'),
       image: "/images/collection-necklaces.jpg",
       gradient: "from-rose-600/30 to-rose-800/40"
     },
     {
-      title: "Bracelets",
-      desc: "Tennis bracelets, bangles, and charm bracelets. Adorn your wrist with our stunning bracelet collection.",
+      title: t('bracelets'),
+      desc: t('braceletsDesc'),
       image: "/images/collection-bracelets.jpg",
       gradient: "from-fuchsia-600/30 to-fuchsia-800/40"
     },
@@ -36,9 +39,9 @@ export default function CollectionsPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20 relative">
         {/* Header */}
         <div className="text-center mb-20 animate-elegant-fade">
-          <p className="text-pink-400 text-xs tracking-[0.3em] uppercase mb-4 font-medium">Curated with Love</p>
-          <h1 className="font-serif text-4xl sm:text-6xl text-white mb-6 text-shadow-elegant">Our Collections</h1>
-          <p className="text-neutral-300 text-lg max-w-2xl mx-auto">Explore our carefully curated collections, each piece designed to complement your unique style</p>
+          <p className="text-pink-400 text-xs tracking-[0.3em] uppercase mb-4 font-medium">{t('curatedForYou')}</p>
+          <h1 className="font-serif text-4xl sm:text-6xl text-white mb-6 text-shadow-elegant">{t('ourCollections')}</h1>
+          <p className="text-neutral-300 text-lg max-w-2xl mx-auto">{t('collectionsDesc')}</p>
         </div>
 
         {/* Collections Grid */}
@@ -84,10 +87,10 @@ export default function CollectionsPage() {
 
                   <div className="space-y-4">
                     <Link
-                      href="/shop"
+                      href={`/${locale}/shop`}
                       className="inline-flex items-center gap-3 bg-pink-gradient text-white px-8 py-3 text-sm font-medium tracking-widest uppercase rounded-full shadow-pink hover:shadow-pink-hover transition-all duration-300 transform hover:scale-105"
                     >
-                      View Collection
+                      {t('viewCollection')}
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                       </svg>
@@ -98,15 +101,15 @@ export default function CollectionsPage() {
                   <div className="pt-6 space-y-3">
                     <div className="flex items-center gap-3">
                       <div className="w-2 h-2 bg-pink-400 rounded-full" />
-                      <span className="text-neutral-400 text-sm">Handcrafted with precision</span>
+                      <span className="text-neutral-400 text-sm">{t('handcraftedPrecision')}</span>
                     </div>
                     <div className="flex items-center gap-3">
                       <div className="w-2 h-2 bg-pink-400 rounded-full" />
-                      <span className="text-neutral-400 text-sm">Premium quality materials</span>
+                      <span className="text-neutral-400 text-sm">{t('premiumQualityMaterials')}</span>
                     </div>
                     <div className="flex items-center gap-3">
                       <div className="w-2 h-2 bg-pink-400 rounded-full" />
-                      <span className="text-neutral-400 text-sm">Timeless elegant designs</span>
+                      <span className="text-neutral-400 text-sm">{t('freeShipping')}</span>
                     </div>
                   </div>
                 </div>

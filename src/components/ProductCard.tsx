@@ -2,15 +2,17 @@
 import Link from "next/link";
 import { useCartStore } from "@/lib/cart-store";
 import type { CartProduct } from "@/lib/cart-store";
+import { useTranslation } from "@/components/TranslationProvider";
 
 type Props = { product: CartProduct & { bestseller?: boolean; isNew?: boolean; description?: string }; index?: number };
 
 export default function ProductCard({ product, index = 0 }: Props) {
   const addItem = useCartStore((s) => s.addItem);
+  const { t, locale } = useTranslation();
 
   return (
     <div className="group animate-elegant-fade" style={{ animationDelay: `${index * 100}ms` }}>
-      <Link href={`/product/${product.id}`} className="block">
+      <Link href={`/${locale}/product/${product.id}`} className="block">
         <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-neutral-700 to-neutral-800 aspect-square feminine-border shadow-pink group-hover:shadow-pink-hover transition-all duration-500 transform group-hover:scale-105">
           {/* Product Image */}
           <div className="w-full h-full bg-gradient-to-br from-neutral-700 to-neutral-800 flex items-center justify-center text-gray-400 group-hover:scale-110 transition-transform duration-700">
@@ -21,7 +23,7 @@ export default function ProductCard({ product, index = 0 }: Props) {
                 <div className="w-16 h-16 bg-gradient-to-br from-pink-500 to-pink-600 rounded-full mx-auto mb-3 flex items-center justify-center">
                   <div className="w-8 h-8 bg-white rounded-full shadow-inner" />
                 </div>
-                <span className="text-sm text-neutral-300">Premium Accessory</span>
+                <span className="text-sm text-neutral-300">{locale === 'ar' ? 'إكسسوار مميز' : locale === 'fr' ? 'Accessoire Premium' : 'Premium Accessory'}</span>
               </div>
             )}
           </div>
@@ -33,12 +35,12 @@ export default function ProductCard({ product, index = 0 }: Props) {
           <div className="absolute top-3 left-3 space-y-2">
             {product.bestseller && (
               <span className="inline-block bg-pink-gradient text-white text-[10px] font-medium tracking-wider uppercase px-3 py-1.5 rounded-full shadow-lg">
-                Bestseller
+                {locale === 'ar' ? 'الأكثر مبيعا' : locale === 'fr' ? 'Best-seller' : 'Bestseller'}
               </span>
             )}
             {product.isNew && (
               <span className="inline-block bg-gold-gradient text-white text-[10px] font-medium tracking-wider uppercase px-3 py-1.5 rounded-full shadow-lg">
-                New
+                {locale === 'ar' ? 'جديد' : locale === 'fr' ? 'Nouveauté' : 'New'}
               </span>
             )}
           </div>
@@ -49,11 +51,11 @@ export default function ProductCard({ product, index = 0 }: Props) {
               onClick={(e) => { e.preventDefault(); addItem(product); }}
               className="w-full bg-white/95 backdrop-blur-sm text-pink-600 font-medium text-xs tracking-wider uppercase py-3 rounded-full hover:bg-white hover:shadow-lg transition-all duration-300 transform hover:scale-105"
             >
-              Add to Cart
+              {t('addToCart')}
             </button>
             <div className="flex gap-2 mt-2">
               <button className="flex-1 bg-white/80 backdrop-blur-sm text-neutral-800 text-xs py-2 rounded-full hover:bg-white transition-all duration-300">
-                View
+                {t('view')}
               </button>
             </div>
           </div>

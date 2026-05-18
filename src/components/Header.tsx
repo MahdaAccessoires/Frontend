@@ -3,7 +3,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { useCartStore } from "@/lib/cart-store";
-import { ShoppingBag } from "lucide-react";
+import { ShoppingBag, Globe } from "lucide-react";
+import { useTranslation } from "@/components/TranslationProvider";
 
 
 const links = [
@@ -15,8 +16,22 @@ const links = [
 export default function Header() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [langOpen, setLangOpen] = useState(false);
   const cartCount = useCartStore((s) => s.count());
   const toggleCart = useCartStore((s) => s.toggleCart);
+  const { t, locale, changeLanguage } = useTranslation();
+
+  const links = [
+    { href: `/${locale}`, label: t('home') },
+    { href: `/${locale}/shop`, label: t('shop') },
+    { href: `/${locale}/collections`, label: t('collections') },
+  ];
+
+  const languages = [
+    { code: 'ar', name: 'العربية', flag: 'AR' },
+    { code: 'fr', name: 'Français', flag: 'FR' },
+    { code: 'en', name: 'English', flag: 'EN' },
+  ];
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-feminine-gradient/90 backdrop-blur-lg border-b border-pink-500/30 shadow-dark">
@@ -34,7 +49,7 @@ export default function Header() {
           </button>
 
           {/* Logo */}
-          <Link href="/" className="group">
+          <Link href={`/${locale}`} className="group">
             <div className="flex items-center gap-3">
 
 
@@ -60,6 +75,43 @@ export default function Header() {
               </Link>
             ))}
           </nav>
+
+          {/* Language Selector */}
+          <div className="relative">
+            <button
+              onClick={() => setLangOpen(!langOpen)}
+              className="hidden sm:flex items-center gap-2 p-3 rounded-full bg-white/10 hover:bg-white/20 transition-all duration-300 transform hover:scale-110"
+              aria-label="Language"
+            >
+              <Globe className="w-4 h-4 text-pink-400" />
+              <span className="text-xs text-pink-400 font-medium">
+                {languages.find(lang => lang.code === locale)?.flag}
+              </span>
+            </button>
+
+            {/* Language Dropdown */}
+            {langOpen && (
+              <div className="absolute right-0 top-full mt-2 bg-gray-800/95 backdrop-blur-sm rounded-xl border border-pink-500/30 shadow-2xl py-2 min-w-[150px]">
+                {languages.map((lang) => (
+                  <button
+                    key={lang.code}
+                    onClick={() => {
+                      changeLanguage(lang.code as 'ar' | 'fr' | 'en');
+                      setLangOpen(false);
+                    }}
+                    className={`w-full px-4 py-2 text-left hover:bg-pink-500/10 transition-colors duration-200 flex items-center gap-3 ${locale === lang.code ? 'bg-pink-500/20 text-pink-300' : 'text-gray-300'
+                      }`}
+                  >
+                    <span className="text-sm">{lang.flag}</span>
+                    <span className="text-sm">{lang.name}</span>
+                    {locale === lang.code && (
+                      <span className="ml-auto text-pink-400 text-xs">✓</span>
+                    )}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
 
           {/* Cart Button */}
           <button
